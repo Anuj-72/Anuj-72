@@ -1,0 +1,37 @@
+name: Refresh profile card
+
+on:
+  schedule:
+    # Daily at 00:17 UTC, so the new day's uptime is in place before the morning.
+    - cron: "17 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Regenerate the SVGs
+        run: python3 generate_figma_profile.py
+
+      - name: Commit the update
+        run: |
+          if git diff --quiet -- profile-light.svg profile-dark.svg; then
+            echo "Profile card is already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile-light.svg profile-dark.svg
+          git commit -m "chore: refresh profile uptime"
+          git push
