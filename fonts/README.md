@@ -3,7 +3,7 @@
 `ProfileMono-Regular.woff`, `ProfileMono-SemiBold.woff`, and
 `ProfileDisplay-SemiBold.woff` are ASCII-only subsets (U+0020–U+007E) of two OFL
 typefaces, inlined into the generated SVGs as base64 WOFF by
-`generate_figma_profile.py`.
+`generate_profile.py`.
 
 | File | Family in the SVG | Upstream |
 | --- | --- | --- |

@@ -16,10 +16,10 @@ as a pair. A static neon bloom on the frame and values can be switched off with
 --no-glow, and the scan band animation with --no-sweep.
 
 Usage:
-    python3 generate_figma_profile.py
-    python3 generate_figma_profile.py --no-sweep
-    python3 generate_figma_profile.py --no-glow
-    python3 generate_figma_profile.py "GitHub README Light.svg" --out-dir .
+    python3 generate_profile.py
+    python3 generate_profile.py --no-sweep
+    python3 generate_profile.py --no-glow
+    python3 generate_profile.py "GitHub README Light.svg" --out-dir .
 
 No third-party Python packages are required.
 """

@@ -7,7 +7,7 @@ This package contains the original Figma-exported light SVG, a Python generator,
 From this directory, run:
 
 ```bash
-python3 generate_figma_profile.py
+python3 generate_profile.py
 ```
 
 The script writes `profile-light.svg` and `profile-dark.svg` beside itself. Add
@@ -15,7 +15,7 @@ The script writes `profile-light.svg` and `profile-dark.svg` beside itself. Add
 a different source or output directory:
 
 ```bash
-python3 generate_figma_profile.py "GitHub README Light.svg" --out-dir .
+python3 generate_profile.py "GitHub README Light.svg" --out-dir .
 ```
 
 No third-party Python modules are required. The original Figma SVG is never modified. The script replaces the left information block, rescales the cactus illustration, and resizes the surrounding Figma card; the exported artwork, chrome, gradients, and shadow are retained.
@@ -23,7 +23,7 @@ No third-party Python modules are required. The original Figma SVG is never modi
 ## Edit content
 
 Edit the `PERSONAL_ROWS`, `CODING_ROWS`, and `CONTACT_ROWS` lists in
-`generate_figma_profile.py`.
+`generate_profile.py`.
 
 The `Uptime:` row is generated, not typed. `UPTIME_EPOCH` (currently `2005-08-02`) is
 the date it counts from, and `elapsed_label()` renders the completed years, months and
@@ -33,7 +33,7 @@ days. The count uses the UTC date, so the row advances once just after 00:00 UTC
 ## Daily refresh
 
 `.github/workflows/refresh-profile.yml` regenerates both SVGs every day at 00:17 UTC
-(05:47 IST) and on manual dispatch. It runs `python3 generate_figma_profile.py` with no
+(05:47 IST) and on manual dispatch. It runs `python3 generate_profile.py` with no
 third-party packages, then commits `profile-light.svg` and `profile-dark.svg` only when
 their content changed — an identical run leaves the history untouched. The push uses
 the workflow's own token via `permissions: contents: write`.
@@ -86,7 +86,7 @@ theme's `glow` color, and merges it under the crisp stroke.
 
 The halo itself is static and adds about 1.6 KB per SVG. The canvas gutter keeps it
 from being clipped, and the source artwork and text render crisply under the bloom.
-Run `python3 generate_figma_profile.py --no-glow` to omit both filters, the frame and
+Run `python3 generate_profile.py --no-glow` to omit both filters, the frame and
 the scan band for the flat version.
 
 ## Scan band
@@ -123,7 +123,7 @@ unmasked grid because the mask fades most of it away. The grid color is
 frame gold, because the lighter line keeps the contact rows at 4.6:1 contrast instead
 of dipping under 4.5:1 at the halo peak. Set an opacity to `0.0` to remove the grid
 from that theme.
-- `python3 generate_figma_profile.py --no-sweep` keeps the bloom and writes a still
+- `python3 generate_profile.py --no-sweep` keeps the bloom and writes a still
 card; the grid belongs to the scan layer, so it goes too. `--no-glow` omits the bloom,
 the grid and the band together.
 
@@ -154,6 +154,6 @@ The theme colors are defined in `PALETTES`:
 
 ## Checking the output
 
-`python3 generate_figma_profile.py` re-parses both written files before reporting success, so malformed SVG output fails the run. Build the flags you intend to publish (`--no-sweep`, `--no-glow`) once more before committing.
+`python3 generate_profile.py` re-parses both written files before reporting success, so malformed SVG output fails the run. Build the flags you intend to publish (`--no-sweep`, `--no-glow`) once more before committing.
 
 The card artwork and text are vector, not GIF frames, so they stay crisp at any scale; only the scan band and its grid halo are animated, and the previews in `preview/` show the resting frame. The existing README can continue using `profile-dark.svg` and `profile-light.svg` in its `<picture>` element.

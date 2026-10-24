@@ -22,7 +22,7 @@ jobs:
           python-version: "3.12"
 
       - name: Regenerate the SVGs
-        run: python3 generate_figma_profile.py
+        run: python3 generate_profile.py
 
       - name: Commit the update
         run: |
