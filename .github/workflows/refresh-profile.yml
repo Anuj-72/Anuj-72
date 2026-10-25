@@ -2,8 +2,8 @@ name: Refresh profile card
 
 on:
   schedule:
-    # Daily at 00:17 UTC, so the new day's uptime is in place before the morning.
-    - cron: "17 0 * * *"
+    # Daily at 18:30 UTC, i.e. 00:00 IST, so the new day's uptime is in place before the morning.
+    - cron: "30 18 * * *"
   workflow_dispatch:
 
 permissions:
