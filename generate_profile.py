@@ -100,8 +100,11 @@ PALETTES = {
 # days. It currently reads 21 Years, 2 Months, 22 Days; change this one date if you
 # want to count from a different start. The daily workflow regenerates it.
 UPTIME_EPOCH = date(2005, 8, 2)
-# Deliberately static: a fun offline window rather than a measured value.
-DAILY_DOWNTIME = "8-10 Hours"
+# Deliberately static: a fun offline window rather than a measured value. The hours are
+# the source of truth for the row and for the share of the day rendered after them, so
+# the two can never disagree. 8-10 hours offline is 33.3-41.7% of a 24-hour day.
+DAILY_DOWNTIME_HOURS = (8, 10)
+HOURS_PER_DAY = 24
 
 
 def add_months(start: date, months: int) -> date:
@@ -135,10 +138,21 @@ def elapsed_label(epoch: date, today: date | None = None) -> str:
             f"{counted(days, 'Day')}")
 
 
+def downtime_label(window: tuple[int, int]) -> str:
+    """Return the offline window and its share of a day: '8-10 Hours, 33.3-41.7%'.
+
+    The percentage is what an availability target would quote the other way round:
+    99% uptime allows 14.4 minutes of downtime a day, 99.9% just 86.4 seconds.
+    """
+    low, high = window
+    return (f"{low}-{high} Hours, "
+            f"{low / HOURS_PER_DAY * 100:.1f}-{high / HOURS_PER_DAY * 100:.1f}%")
+
+
 PERSONAL_ROWS = [
     ("Name:", "Anuj Kumar Sah"),
     ("Uptime:", elapsed_label(UPTIME_EPOCH)),
-    ("Daily Downtime:", DAILY_DOWNTIME),
+    ("Daily Downtime:", downtime_label(DAILY_DOWNTIME_HOURS)),
     ("Education:", "CSE, Undergraduate"),
     ("Languages:", "C++, Python, Go, JavaScript"),
     ("Focus:", "Developer Tools, Backend Systems"),

@@ -28,7 +28,14 @@ Edit the `PERSONAL_ROWS`, `CODING_ROWS`, and `CONTACT_ROWS` lists in
 The `Uptime:` row is generated, not typed. `UPTIME_EPOCH` (currently `2005-08-02`) is
 the date it counts from, and `elapsed_label()` renders the completed years, months and
 days. The count uses the UTC date, so the row advances once just after 00:00 UTC.
-`DAILY_DOWNTIME` is a static string (`8-10 Hours`); edit it if the joke changes.
+
+The `Daily Downtime:` row is a joke, not a measurement, but the arithmetic behind it is
+real: `DAILY_DOWNTIME_HOURS` (currently `(8, 10)`) is the offline window and
+`downtime_label()` renders it with its share of a 24-hour day, so the row reads
+`8-10 Hours, 33.3-41.7%`. Availability targets quote the same ratio the other way round
+— two nines (99%) allow 14.4 minutes of downtime a day, three nines (99.9%) allow 86.4
+seconds — which is why a third of every day offline is not an SLA. Edit the tuple if the
+joke changes; the percentage is derived from it and follows along.
 
 ## Daily refresh
 
