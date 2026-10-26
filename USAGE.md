@@ -32,8 +32,8 @@ days. The count uses the UTC date, so the row advances once just after 00:00 UTC
 
 ## Daily refresh
 
-`.github/workflows/refresh-profile.yml` regenerates both SVGs every day at 00:17 UTC
-(05:47 IST) and on manual dispatch. It runs `python3 generate_profile.py` with no
+`.github/workflows/refresh-profile.yml` regenerates both SVGs every day at 18:30 UTC
+(00:00 IST) and on manual dispatch. It runs `python3 generate_profile.py` with no
 third-party packages, then commits `profile-light.svg` and `profile-dark.svg` only when
 their content changed — an identical run leaves the history untouched. The push uses
 the workflow's own token via `permissions: contents: write`.
